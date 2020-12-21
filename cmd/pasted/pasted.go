@@ -36,7 +36,7 @@ func main() {
 }
 
 func handleRequest(conn net.Conn) {
-	hostAddr, filePath, fileName := common.MakeFileName("/data", conn.RemoteAddr().String())
+	filePath, fileName := common.MakeFileName("/data", conn.RemoteAddr().String())
 	os.MkdirAll(filePath, os.ModePerm)
 	f, err := os.Create(filePath + fileName)
 	check(err)

@@ -10,7 +10,7 @@ import (
 // MakeFileName generates the full filepath from args:
 // hostAddr, filePath, fileName
 // 127.0.0.1, /data/, 7c13232c726d635ce4076f56779e42e85ec58c40.txt
-func MakeFileName(dataPath, remoteAddr string) (string, string, string) {
+func MakeFileName(dataPath, remoteAddr string) (string, string) {
 	hostPort := strings.Split(remoteAddr, ":")
 	hostPort = hostPort[0 : len(hostPort)-1]
 	host := strings.Join(hostPort, ":")
@@ -20,8 +20,7 @@ func MakeFileName(dataPath, remoteAddr string) (string, string, string) {
 	h.Write([]byte(randStringRunes(32)))
 	bs := h.Sum(nil)
 
-	return host,
-		(dataPath + "/"),
+	return (dataPath + "/"),
 		(fmt.Sprintf("%x", bs) + ".txt")
 }
 
