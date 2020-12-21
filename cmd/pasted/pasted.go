@@ -41,7 +41,7 @@ func handleRequest(conn net.Conn) {
 	f, err := os.Create(filePath + fileName)
 	check(err)
 
-	url := urlRoot + hostAddr + "/" + fileName
+	url := urlRoot + fileName
 	conn.Write([]byte("Connection established, your paste will be at: " + url + "\n"))
 	fmt.Println("New paste from " + conn.RemoteAddr().String() + ": " + url)
 

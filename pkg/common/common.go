@@ -21,7 +21,7 @@ func MakeFileName(dataPath, remoteAddr string) (string, string, string) {
 	bs := h.Sum(nil)
 
 	return host,
-		(dataPath + "/" + host + "/"),
+		(dataPath + "/"),
 		(fmt.Sprintf("%x", bs) + ".txt")
 }
 
