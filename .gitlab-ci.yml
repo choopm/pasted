@@ -12,7 +12,6 @@ variables:
   DOCKER_DRIVER: overlay2
   GIT_SUBMODULE_STRATEGY: normal
   LATEST_IMAGE: $CI_REGISTRY_IMAGE:latest
-  LATEST_IMAGE_ARM64: $CI_REGISTRY_IMAGE/arm64:latest
 
 build:
   stage: build
@@ -21,6 +20,5 @@ build:
     - docker pull $LATEST_IMAGE || true
     - docker build --pull --tag $LATEST_IMAGE --build-arg=CI_PROJECT_DIR=$CI_PROJECT_DIR --build-arg=CI_PROJECT_URL=$CI_PROJECT_URL .
     - docker push $LATEST_IMAGE
-    - docker buildx build --platform linux/arm64/v8 --push --pull --tag $LATEST_IMAGE_ARM64 --build-arg=CI_PROJECT_DIR=$CI_PROJECT_DIR --build-arg=CI_PROJECT_URL=$CI_PROJECT_URL .
 
 #  vim: set ts=2 sw=2 tw=0 et :
