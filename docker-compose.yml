@@ -1,0 +1,22 @@
+version: '3'
+volumes:
+  pastes:
+    driver: local
+services:
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - pastes:/usr/share/nginx/html:ro
+
+  paste:
+    image: registry.gitlab.0pointer.org/choopm/pasted
+    restart: always
+    ports:
+      - "10101:10101"
+    volumes:
+      - pastes:/data
+    environment:
+      - URL_ROOT=http://localhost/
