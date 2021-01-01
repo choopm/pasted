@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"net"
 	"os"
-	"time"
 
 	"gitlab.0pointer.org/choopm/pasted/pkg/common"
 )
@@ -17,8 +15,6 @@ var (
 )
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
-
 	// Setup listener
 	listener, err := net.Listen("tcp", host+":"+port)
 	check(err)
@@ -36,10 +32,14 @@ func main() {
 }
 
 func handleRequest(conn net.Conn) {
+	defer conn.Close()
+
 	filePath, fileName := common.MakeFileName("/data", conn.RemoteAddr().String())
 	os.MkdirAll(filePath, os.ModePerm)
+
 	f, err := os.Create(filePath + fileName)
 	check(err)
+	defer f.Close()
 
 	url := urlRoot + fileName
 	conn.Write([]byte("Connection established, your paste will be at: " + url + "\n"))
@@ -60,7 +60,6 @@ func handleRequest(conn net.Conn) {
 		// Read again
 		reqLen, err = conn.Read(buf)
 	}
-	conn.Close()
 }
 
 func check(e error) {
