@@ -1,8 +1,8 @@
 stages:
   - build
+  - deploy
 
 image: docker:19.03.12
-
 services:
   - docker:19.03.12-dind
 
@@ -15,6 +15,8 @@ variables:
 
 build:
   stage: build
+  only:
+    - master
   script:
     - docker login -u "gitlab-ci-token" -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker pull $LATEST_IMAGE || true
