@@ -6,7 +6,7 @@ volumes:
 
 services:
   paste:
-    image: registry.gitlab.0pointer.org/choopm/pasted
+    image: ghcr.io/choopm/pasted
     restart: always
     ports:
       - "10101:10101"

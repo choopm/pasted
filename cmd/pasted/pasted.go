@@ -5,7 +5,7 @@ import (
 	"net"
 	"os"
 
-	"gitlab.0pointer.org/choopm/pasted/pkg/common"
+	"github.com/choopm/pasted/pkg/common"
 )
 
 var (
@@ -55,7 +55,10 @@ func handleRequest(conn net.Conn) {
 
 		// Append to file
 		_, err := f.Write(buf[0:reqLen])
-		check(err)
+		if err != nil {
+			fmt.Println("Error writing: ", err.Error())
+			break
+		}
 
 		// Read again
 		reqLen, err = conn.Read(buf)

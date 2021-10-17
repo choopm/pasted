@@ -1,3 +1,3 @@
-module gitlab.0pointer.org/choopm/pasted
+module github.com/choopm/pasted
 
-go 1.16
+go 1.17
