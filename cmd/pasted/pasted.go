@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net"
 	"os"
 
@@ -43,26 +44,11 @@ func handleRequest(conn net.Conn) {
 
 	url := urlRoot + fileName
 	conn.Write([]byte("Connection established, your paste will be at: " + url + "\n"))
-	fmt.Println("New paste from " + conn.RemoteAddr().String() + ": " + url)
 
-	bufSize := 1024
-	buf := make([]byte, bufSize)
-	for reqLen, err := conn.Read(buf); reqLen > 0; {
-		if err != nil {
-			fmt.Println("Error reading: ", err.Error())
-			break
-		}
+	bytes, err := io.Copy(f, conn)
+	check(err)
 
-		// Append to file
-		_, err := f.Write(buf[0:reqLen])
-		if err != nil {
-			fmt.Println("Error writing: ", err.Error())
-			break
-		}
-
-		// Read again
-		reqLen, err = conn.Read(buf)
-	}
+	fmt.Println(bytes, "bytes from", conn.RemoteAddr().String()+":", url)
 }
 
 func check(e error) {
