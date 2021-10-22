@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+  pastes:
+    driver: local
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "10101:10101"
+    volumes:
+      - ..:/workspace:cached
+      - pastes:/data
+    environment:
+      - URL_ROOT=http://localhost/
+    command: sleep infinity
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - pastes:/usr/share/nginx/html:ro

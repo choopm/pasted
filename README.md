@@ -13,3 +13,8 @@ docker run --rm -it -p 10101:10101 -v "$(pwd)/pastes:/data" ghcr.io/choopm/paste
     make
 
 Binaries can be found in `dist/<platform>`
+
+## Running a dev container
+When using VS Code you may be asked to reopen the project in a devcontainer, do so.
+
+Afterwards use `go run cmd/pasted/pasted.go` to run the app.

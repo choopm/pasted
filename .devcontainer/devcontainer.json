@@ -1,0 +1,13 @@
+{
+	"name": "pasted dev environment",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+
+	"extensions": [
+		"golang.go",
+		"msyrus.go-doc",
+	],
+
+	"forwardPorts": [80, 10101],
+}
