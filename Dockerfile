@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} golang:1.17.3 as base
+FROM --platform=${BUILDPLATFORM} golang:1.17.6 as base
 
 FROM base as builder
 ARG GITHUB_TOKEN=
