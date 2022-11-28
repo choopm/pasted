@@ -41,7 +41,7 @@ COPY --from=localbuilder /build/cmd/pasted/pasted.exe /
 FROM bin-${TARGETOS} AS bin
 
 # default target
-FROM alpine:3.14.2
+FROM alpine:3.17.0
 COPY --from=builder /pasted /usr/local/bin/pasted
 VOLUME [ "/data" ]
 LABEL org.opencontainers.image.source https://github.com/choopm/pasted
